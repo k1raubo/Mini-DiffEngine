@@ -1,4 +1,4 @@
-from .scalar import Scalar
+from minitorch import scalar
 
 
 class Optimizer:
@@ -10,7 +10,7 @@ class Optimizer:
 
     def zero_grad(self):
         for param in self.parameters:
-            param.grad = Scalar(0.0)
+            param.grad = scalar(0.0)
 
 
 class SGD(Optimizer):
