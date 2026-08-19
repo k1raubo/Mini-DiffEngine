@@ -65,15 +65,16 @@ class Variable:
             if not retain_graph:
                 variable.grad_fn = None
 
+    def __build_topology(self, variable, visited=None, topology=None):
+        if visited is None:
+            visited = set()
+        if topology is None:
+            topology = []
 
-    def __build_topology(self, variable):
-        visited_variables = set()
-        topology = []
-
-        if variable not in visited_variables and variable.grad_fn is not None:
-            visited_variables.add(variable)
+        if variable not in visited and variable.grad_fn is not None:
+            visited.add(variable)
             for parent in variable.grad_fn.parents:
-                self.__build_topology(parent)
+                self.__build_topology(parent, visited, topology)
             topology.append(variable)
 
         return topology
