@@ -33,7 +33,7 @@ class Module:
         raise NotImplementedError
 
 
-class Neuron(Module):
+class Cell(Module):
     def __init__(self):
         super().__init__()
         self.w = scalar(random.uniform(-1, 1), requires_grad=True)
@@ -46,7 +46,7 @@ class Neuron(Module):
 class Perceptron(Module):
     def __init__(self):
         super().__init__()
-        self.neuron = Neuron()
+        self.cell = Cell()
 
     def forward(self, x):
-        return F.sigmoid(self.neuron(x))
+        return F.sigmoid(self.cell(x))
